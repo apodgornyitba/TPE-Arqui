@@ -1,126 +1,48 @@
 #include <rtc.h>
 #include <lib.h>
 
+//define para los valores de RTC
 #define SECONDS 0x00
 #define MINUTES 0x02
-#define HOURS 0x04
-#define DAYS 0x07
-#define MONTH 0x08
-#define YEAR 0x09
-#define TIME_ZONE -3
+#define HOURS   0x04
+#define DAYS    0x07
+#define MONTHS  0x08
+#define YEARS   0x09
+//constante que marca la diferencia horaria para poder obtener la hora de Argentina
+#define TIME_ZONE 3
+
+//define para switch-case
+#define SEC   0
+#define MIN   1
+#define HOUR  2
+#define DAY   3
+#define MONTH 4
+#define YEAR  5
 
 unsigned char RTC(unsigned char mode);
 
-static unsigned int decode(unsigned char time)
+//obtenemos los bits sinificativos de RTC
+static unsigned int cast(unsigned char time)
 {
     return (time >> 4) * 10 + (time & 0x0F);
 }
 
-unsigned int seconds()
-{
-    return decode(RTC(SECONDS));
+int DateTime(unsigned int selector) {
+    switch (selector)
+    {
+    case SEC:
+        return cast(RTC(SECONDS));
+    case MIN:
+        return cast(RTC(MINUTES));
+    case HOUR:
+        return cast(RTC(HOURS)) - TIME_ZONE;
+    case DAY:
+        return cast(RTC(DAYS));
+    case MONTH:
+        return cast(RTC(MONTHS));
+    case YEAR:
+        return cast(RTC(YEARS));
+    default:
+        return -1;
+    }
 }
-
-unsigned int minutes()
-{
-    return decode(RTC(MINUTES));
-}
-
-unsigned int hours()
-{
-    return decode(RTC(HOURS)) + TIME_ZONE;
-}
-
-unsigned int day(){
-    return decode(RTC(DAYS));
-}
-
-unsigned int month(){
-    return decode(RTC(MONTH));
-}
-unsigned int year()
-{
-    return decode(RTC(YEAR));
-}
-
-void timeToStr(char * dest) {
-    dest[2] = dest[5] = ':';
-    uint8_t s, m, h = hours();
-    dest[0] = (h / 10) % 10 + '0';
-    dest[1] = h % 10 +'0';
-    m = minutes();
-	dest[3] = (m / 10) % 10 + '0';
-    dest[4] = m % 10 + '0';
-    s = seconds();
-	dest[6] = (s / 10) % 10 + '0';
-    dest[7] = s % 10 + '0';
-}
-
-void dateToStr(char * dest) {
-    dest[2] = dest[5] = '/';
-    uint8_t d = day(), m, y;
-    dest[0] = (d / 10) % 10 + '0';
-    dest[1] = d % 10 +'0';
-    m = month();
-	dest[3] = (m / 10) % 10 + '0';
-    dest[4] = m % 10 + '0';
-    y = year();
-	dest[6] = (y / 10) % 10 + '0';
-    dest[7] = y % 10 + '0';
-}
-
-/*#include <rtc.h>
-#include <lib.h>
-#include <naiveConsole.h>
-
-#define SECONDS 0x00
-#define MINUTES 0x02
-#define HOURS 0x04
-#define DAYS 0x07
-#define MONTH 0x08
-#define YEAR 0x09
-#define TIME_ZONE -3
-
-unsigned char RTC(unsigned char mode);
-
-unsigned int seconds()
-{
-    return RTC(SECONDS);
-}
-
-unsigned int minutes()
-{
-    return RTC(MINUTES);
-}
-
-unsigned int hours()
-{
-    return RTC(HOURS) + TIME_ZONE;
-}
-
-unsigned int day(){
-    return RTC(DAYS);
-}
-
-unsigned int month(){
-    return RTC(MONTH);
-}
-
-unsigned int year()
-{
-    return RTC(YEAR);
-}
-
-void getDate() {
-    ncPrintChar(day());
-	ncPrint("/");
-	ncPrintChar(month());
-	ncPrint("/");
-	ncPrintDec(year());
-    ncNewline();
-    ncPrintDec(hours());
-	ncPrint(":");
-	ncPrintDec(RTC(MINUTES));
-	ncPrint(":");
-	ncPrintHex(RTC(SECONDS));
-}*/

@@ -14,9 +14,12 @@ GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 
 GLOBAL _exception0Handler
+GLOBAL _exception6Handler
+;GLOBAL _syscallHandler
 
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
+;EXTERN syscallDispatcher
 
 SECTION .text
 
@@ -138,17 +141,23 @@ _irq04Handler:
 _irq05Handler:
 	irqHandlerMaster 5
 
-
 ;Zero Division Exception
 _exception0Handler:
 	exceptionHandler 0
+
+;Invalid OP Code Exception
+_exception6Handler:
+	exceptionHandler 6
+
+;int 80h
+_syscallHandler:
+	call syscallDispatcher
+	iretq
 
 haltcpu:
 	cli
 	hlt
 	ret
-
-
 
 SECTION .bss
 	aux resq 1
