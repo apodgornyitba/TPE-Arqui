@@ -2,6 +2,7 @@ GLOBAL cpuVendor
 GLOBAL RTC
 GLOBAL getKey
 GLOBAL getReg
+GLOBAL getMem
 
 section .text
 	
@@ -169,3 +170,13 @@ getReg:
     .getR15:
         mov rax, r15
         jmp .exit
+
+getMem;
+    push rbp
+	mov rbp,rsp
+
+	mov al, byte[rdi]
+
+	mov rsp,rbp
+	pop rbp
+	ret
