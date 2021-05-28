@@ -3,7 +3,6 @@
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
-#include <rtc.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -99,16 +98,6 @@ int main()
 	ncPrint("  Sample data module contents: ");
 	ncPrint((char*)sampleDataModuleAddress);
 	ncNewline();
-
-	//deberia estar dentro de una funcion para userland
-	/*char *date;
-	dateToStr(date);
-	ncPrint(date);
-	ncNewline();
-	char *time;
-	timeToStr(time);
-	ncPrint(time);
-	ncNewline();*/
 
 	ncPrint("[Finished]");
 	return 0;

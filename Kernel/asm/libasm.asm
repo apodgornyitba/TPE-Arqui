@@ -171,7 +171,7 @@ getReg:
         mov rax, r15
         jmp .exit
 
-getMem;
+getMem:
     push rbp
 	mov rbp,rsp
 

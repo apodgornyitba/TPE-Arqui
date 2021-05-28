@@ -2,7 +2,7 @@
 #include <lib.h>
 
 #define ZERO_EXCEPTION_ID 0
-#define INVALID_OP_CODE 6
+#define INVALID_OP_CODE_ID 6
 
 static void zero_division();
 static void invalid_op_code();
@@ -14,8 +14,8 @@ void printRegisters(uint64_t rsp);
 void exceptionDispatcher(int exception, uint64_t rsp) {
 	if (exception == ZERO_EXCEPTION_ID)
 		zero_division();
-	if (exception =  INVALID_OP_CODE)
-        invalid_op_code()
+	if (exception ==  INVALID_OP_CODE_ID)
+        invalid_op_code();
     printRegisters(rsp);
     return;
 }
@@ -35,11 +35,11 @@ void printRegisters(uint64_t rsp){
     ncPrint("RIP: ");
     ncPrintHex(rsp);
     ncNewline();
-    for (int i = 0; i >= 14; i++){
+    for (int i = 0; i <= 14; i++){
         ncPrint(registers[i]);
         ncPrint(" : ");
         ncPrintHex(getReg(i));
         ncNewline();
-    }  
+    }
     ncNewline();  
 }

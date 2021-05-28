@@ -1,4 +1,5 @@
 #include <time.h>
+#include <keyboard_driver.h>
 #include <stdint.h>
 
 static void int_20();

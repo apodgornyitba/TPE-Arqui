@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "lib.h": "c",
+        "time.h": "c",
+        "keyboard_driver.h": "c"
+    }
+}

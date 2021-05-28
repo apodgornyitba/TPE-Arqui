@@ -15,11 +15,11 @@ GLOBAL _irq05Handler
 
 GLOBAL _exception0Handler
 GLOBAL _exception6Handler
-;GLOBAL _syscallHandler
+GLOBAL _syscallHandler
 
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
-;EXTERN syscallDispatcher
+EXTERN syscallDispatcher
 
 SECTION .text
 

@@ -20,7 +20,7 @@ void ncPrintChar(char character)
 {
 	*currentVideo = character;
 	currentVideo += 2;
-}
+}	
 
 void ncNewline()
 {
@@ -92,4 +92,21 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base)
 	}
 
 	return digits;
+}
+
+static void scroll() 
+{
+	if (currentVideo >= video + 2*width*(height - 1)) 
+	{
+		for (int i = 0; i< 2*width*(height - 1); i++) 
+		{
+			video[i] = video[i + 2*width];
+		}
+	}
+	currentVideo -= 2*width;
+	for (int j = 0; j < width; j++) 
+	{
+		currentVideo[j*2] = ' ';
+		currentVideo[2*j+1] = 0x07;
+	}
 }

@@ -1,8 +1,4 @@
-#include <stdint.h>
-#include <defs.h>
 #include <idtLoader.h>
-#include <lib.h>
-#include <naiveConsole.h>
 
 #pragma pack(push)		/* Push de la alineación actual */
 #pragma pack (1) 		/* Alinear las siguiente estructuras a 1 byte */
@@ -28,13 +24,12 @@ void load_idt() {
   _cli();
 
   setup_IDT_entry (0x20, (uint64_t)&_irq00Handler);       //Timer tick
-  setup_IDT_entry (0x21, (uint64_t)&_irq01Handler)        //Keyboard
+  setup_IDT_entry (0x21, (uint64_t)&_irq01Handler);       //Keyboard
 
   setup_IDT_entry (0x00, (uint64_t)&_exception0Handler); //zero_division
   setup_IDT_entry (0x06, (uint64_t)&_exception6Handler); //invalid_op_code
   
   setup_IDT_entry(0x80, (uint64_t)&_syscallHandler); //systemCalls
-
 
   // A common mistake is that people reload the mask with 0xFE when they want to add timer,
   // but doing this actually enables only the timer and disables the keyboard (bit #1 of 0xFE is set!)
