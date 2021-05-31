@@ -4,6 +4,10 @@
 #include <moduleLoader.h>
 #include <naiveConsole.h>
 
+#include <idtLoader.h>
+#include <keyboard_driver.h>
+#include <systemCallsDispatcher.h>
+
 extern uint8_t text;
 extern uint8_t rodata;
 extern uint8_t data;
@@ -77,6 +81,12 @@ void * initializeKernelBinary()
 	ncPrint("[Done]");
 	ncNewline();
 	ncNewline();
+	ncClear();
+
+	initKb();
+	load_idt();
+
+	
 	return getStackBase();
 }
 
