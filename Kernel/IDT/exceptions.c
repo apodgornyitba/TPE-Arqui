@@ -37,7 +37,6 @@ void printRegisters(uint64_t rsp){
     ncNewline();
     for (int i = 0; i <= 14; i++){
         ncPrint(registers[i]);
-        ncPrint(" : ");
         ncPrintHex(getReg(i));
         ncNewline();
     }

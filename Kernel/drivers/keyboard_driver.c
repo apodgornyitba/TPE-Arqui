@@ -19,18 +19,12 @@ static int wrIdx = 0;
 #define RSHIFT_RELEASED 0xB6
 #define CAPSLOCK 0x3A
 #define CAPSLOCK_RELEASED 0xBA
-
 #define CTRL 0x1D
-
-// #define F1 0x3B
-// #define F2 0x3C
-
 #define BACKSPACE 8 /* Ascii codes for Backspace, Tab and enter */
 #define TAB 9       /* keys.                                    */
 #define ENTER_KEY 13
 
-char scanToAscii[58][2] = /* Array containing ascii codes for
-			       appropriate scan codes */
+char scanToAscii[58][2] = /* Array containing ascii codes for appropriate scan codes */
     {
         {0, 0},
         {ESC, ESC},
@@ -99,7 +93,8 @@ void initKb() {
 
 void keyboard_handler() {
     
-    if(getKey(0x64) != 0){
+    if(getKey(0x64) != 0)
+    {
 
         unsigned char keyScanned = getKey(0x60);
 

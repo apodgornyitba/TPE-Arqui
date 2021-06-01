@@ -25,7 +25,7 @@ void shellMain(){
         printf("$ > ");
         command[0]=0;
         param[0]=0;
-        scanf("!%s %s",command,param);
+        scanf("%s %s",command,param);
         if (strcmp(command,"HELP") == 0)
             getHelp();
         else if (strcmp(command,"DATE_TIME")==0)

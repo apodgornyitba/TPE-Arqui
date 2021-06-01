@@ -4,6 +4,8 @@
 #include <moduleLoader.h>
 #include <naiveConsole.h>
 
+#include <systemCalls.h>
+#include <rtc.h>
 #include <idtLoader.h>
 #include <keyboard_driver.h>
 #include <systemCallsDispatcher.h>
@@ -85,7 +87,6 @@ void * initializeKernelBinary()
 
 	initKb();
 	load_idt();
-
 	
 	return getStackBase();
 }
@@ -110,5 +111,11 @@ int main()
 	ncNewline();
 
 	ncPrint("[Finished]");
+
+	ncClear();
+
+	while(1){
+	}
+
 	return 0;
 }
